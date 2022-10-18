@@ -9,8 +9,8 @@ public class Game {
 		Random r = new Random();
 		final int WIDTH = Integer.parseInt(sc.nextLine());
 		final int HEIGHT = Integer.parseInt(sc.nextLine());
-		Snake snake = new Snake(r.nextInt(WIDTH), r.nextInt(HEIGHT - 4));
 		Board board = new Board(WIDTH, HEIGHT);
+		Snake snake = new Snake(r.nextInt(WIDTH), r.nextInt(HEIGHT - 4));
 		Apple apple = new Apple(r, WIDTH, HEIGHT, snake);
 		boolean isRunning = true;
 
@@ -18,19 +18,25 @@ public class Game {
 		while (isRunning) {
 			//draw
 			board.draw(snake, apple);
-			//step <- we're here!
+
+			//step
 			if (snake.isAlive) {
 				snake.move(sc, WIDTH, HEIGHT);
 				snake.ate(apple);
 			}
 			//check if we'he eaten the apple
 			else {
-				snake.fall(HEIGHT);
-				if (!snake.notOnGround(HEIGHT)) {
-					newInit()
+				snake.fall(HEIGHT, board);
+				if (!snake.notOnGround(HEIGHT, board)) {
+					snake.boardTransform(board);
+					snake = new Snake(r.nextInt(WIDTH), r.nextInt(HEIGHT - 4));
+					apple = new Apple(r, WIDTH, HEIGHT, snake);
 				}
 			}
+
 			//checks
+			//...
+
 			//FPS
 			try {
 				TimeUnit.MILLISECONDS.sleep(500);

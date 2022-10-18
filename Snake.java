@@ -72,20 +72,26 @@ public class Snake {
 		}
 	}
 
-	public void fall(int h) {
-		if (notOnGround(h)) {
+	public void fall(int h, Board board) {
+		if (notOnGround(h, board)) {
 			for (int i = 0; i < 4; i++) {
 				snake[i][0] += 1;
 			}
 		}
 	}
 
-	public boolean notOnGround(int h) {
+	public boolean notOnGround(int h, Board board) {
 		for (int i = 0; i < 4; i++) {
-			if (snake[i][0] == h - 1) {
+			if (snake[i][0] == h - 1 || board.board[snake[i][0] + 1][snake[i][1]] == '#') {
 				return false;
 			}
 		}
 		return true;
+	}
+
+	public void boardTransform(Board board) {
+		for (int i = 0; i < 4; i++) {
+			board.board[this.snake[i][0]][this.snake[i][1]] = '#';
+		}
 	}
 }

@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Board {
 	char[][] board;
-	int w, h;
+	int w, h, free = w * h;
 	public Board(int w, int h) {
 		this.board = new char[h][w];
 		this.w = w;
